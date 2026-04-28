@@ -107,30 +107,16 @@ def listings(request):
 @login_required(login_url='login')
 def sell(request):
     if request.method == 'POST':
-        if not request.user.is_authenticated:
-            messages.error(request, 'You must be logged in to sell a car.')
-            return redirect('login')
-
         form = CarForm(request.POST, request.FILES)
         if form.is_valid():
             car = form.save(commit=False)
             car.owner = request.user
-
-            images = request.FILES.getlist('images')
-            if images:
-                try:
-                    main_index = int(request.POST.get('main_image_index', 0))
-                except (ValueError, TypeError):
-                    main_index = 0
-                if main_index >= len(images):
-                    main_index = 0
-                car.image = images[main_index]
-
+            if 'image' in request.FILES:
+                car.image = request.FILES['image']
             car.save()
             messages.success(request, 'Car listed successfully!')
             return redirect('dashboard')
         return render(request, 'sell.html', {'form': form})
-
     form = CarForm()
     return render(request, 'sell.html', {'form': form})
 
@@ -187,15 +173,8 @@ def edit_car(request, pk):
         if form.is_valid():
             updated = form.save(commit=False)
 
-            images = request.FILES.getlist('images')
-            if images:
-                try:
-                    main_index = int(request.POST.get('main_image_index', 0))
-                except (ValueError, TypeError):
-                    main_index = 0
-                if main_index >= len(images):
-                    main_index = 0
-                updated.image = images[main_index]
+            if 'image' in request.FILES:
+             updated.image = request.FILES['image']
 
             updated.save()
             messages.success(request, 'Car updated successfully!')
