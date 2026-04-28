@@ -50,8 +50,10 @@
         <select name="model" class="search-bar__select">
 
           <option value="">Model</option>
-            {% if request.GET.make and request.GET.model %}
-              <option value="{{ request.GET.model }}" selected>{{ request.GET.model }}</option>
+            {% if request.GET.make and request.GET.make in models_by_make %}
+              {% for model in models_by_make[request.GET.make] %}
+                <option value="{{ model }}" {% if request.GET.model == model %}selected{% endif %}>{{ model }}</option>
+              {% endfor %}
             {% endif %}
         </select>
         <select name="year" class="search-bar__select">
