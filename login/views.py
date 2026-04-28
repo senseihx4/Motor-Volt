@@ -60,6 +60,9 @@ def register_user(request):
             elif phone and User.objects.filter(phone_number=phone).exists():
                 messages.error(request, 'Phone number already exists.', extra_tags='error')
                 return render(request, 'signup.html', {'form': form})
+            elif phone and len(phone) < 10:
+                messages.error(request, 'Phone number must be at least 10 digits.', extra_tags='error')
+                return render(request, 'signup.html', {'form': form})
             elif phone and not phone.isdigit():
                 messages.error(request, 'Phone number must contain only digits.', extra_tags='error')
                 return render(request, 'signup.html', {'form': form})
