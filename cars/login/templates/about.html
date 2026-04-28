@@ -1,0 +1,270 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — MotorVault</title>
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+</head>
+<body>
+
+  <!-- ───── NAVBAR ───── -->
+  <nav class="navbar">
+    <a href="{% url 'home' %}" class="nav-logo">MOTOR<span>VAULT</span></a>
+    <ul class="nav-links">
+      <li><a href="{% url 'listings' %}">Inventory</a></li>
+      <li><a href="{% url 'sell' %}">Sell Your Car</a></li>
+      <li><a href="{% url 'about' %}" class="active">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="{% url 'dashboard' %}" class="btn-ghost">Dashboard</a>
+      <a href="{% url 'logout' %}" class="btn-yellow">Log Out</a>
+    </div>
+    <button class="nav-toggle" id="navToggle">&#9776;</button>
+  </nav>
+
+  <!-- ───── HERO ───── -->
+  <section class="about-hero">
+    <span class="badge">OUR STORY</span>
+    <h1 class="about-hero__title">
+      BUILT FOR<br>
+      <span class="accent">CAR LOVERS</span>
+    </h1>
+    <p class="about-hero__sub">
+      MotorVault was founded to make the used car market honest, fast, and stress-free.
+      No middlemen, no hidden fees — just real deals between real people.
+    </p>
+  </section>
+
+  <!-- ───── STATS ───── -->
+  <section class="about-stats">
+    <div class="stat-card">
+      <div class="stat-num" data-target="12000" data-suffix="+" data-format="indian">0</div>
+      <div class="stat-label">VEHICLES SOLD</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="8" data-suffix=" YRS">0</div>
+      <div class="stat-label">IN BUSINESS</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="48" data-suffix="HR">0</div>
+      <div class="stat-label">AVG SELL TIME</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="4.8" data-suffix="★" data-decimal="1">0</div>
+      <div class="stat-label">CUSTOMER RATING</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ───── FEATURES ───── -->
+  <section class="about-features">
+    <p class="eyebrow">WHAT WE OFFER</p>
+    <div class="features-grid">
+
+      <div class="feature-card" data-animate>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8C84A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="f-title">VERIFIED LISTINGS</h3>
+        <p class="f-desc">Every car is inspected and certified before going live on our platform.</p>
+      </div>
+
+      <div class="feature-card" data-animate>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8C84A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3 class="f-title">FAST PROCESS</h3>
+        <p class="f-desc">List your car in minutes and receive real offers within 48 hours.</p>
+      </div>
+
+      <div class="feature-card" data-animate>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8C84A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="f-title">SAFE &amp; SECURE</h3>
+        <p class="f-desc">Your data and payments are fully encrypted and protected.</p>
+      </div>
+
+      <div class="feature-card" data-animate>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8C84A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3 class="f-title">TRUSTED COMMUNITY</h3>
+        <p class="f-desc">Thousands of verified buyers and sellers across India.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ───── TEAM ───── -->
+  <section class="about-team">
+    <p class="eyebrow">OUR TEAM</p>
+    <div class="team-grid">
+
+      <div class="team-card" data-animate>
+        <div class="avatar">AK</div>
+        <div class="t-name">ARJUN KUMAR</div>
+        <div class="t-role">Founder &amp; CEO</div>
+      </div>
+
+      <div class="team-card" data-animate>
+        <div class="avatar">PS</div>
+        <div class="t-name">PRIYA SHARMA</div>
+        <div class="t-role">Head of Operations</div>
+      </div>
+
+      <div class="team-card" data-animate>
+        <div class="avatar">RV</div>
+        <div class="t-name">RAHUL VERMA</div>
+        <div class="t-role">Lead Developer</div>
+      </div>
+
+      <div class="team-card" data-animate>
+        <div class="avatar">SM</div>
+        <div class="t-name">SNEHA MEHTA</div>
+        <div class="t-role">Customer Success</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ───── CTA ───── -->
+  <section class="about-cta">
+    <h2 class="cta-title">READY TO FIND YOUR<br><span class="accent">PERFECT DRIVE?</span></h2>
+    <a href="{% url 'listings' %}" class="btn-yellow">BROWSE INVENTORY</a>
+  </section>
+
+  <!-- ───── FOOTER ───── -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="{% url 'home' %}" class="nav-logo">MOTOR<span>VAULT</span></a>
+        <p class="footer-tagline">Curated luxury, sports &amp; everyday vehicles — inspected, certified, and ready to own.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <p class="footer-col__title">EXPLORE</p>
+          <a href="{% url 'listings' %}">Inventory</a>
+          <a href="{% url 'sell' %}">Sell Your Car</a>
+         
+          <a href="{% url 'compare' %}">Compare</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">COMPANY</p>
+          <a href="{% url 'about' %}">About</a>
+          <a href="{% url 'careers' %}">Careers</a>
+          <a href="{% url 'press' %}">Press</a>
+          <a href="{% url 'contact' %}">Contact</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">LEGAL</p>
+          <a href="{% url 'privacy' %}">Privacy</a>
+          <a href="{% url 'terms' %}">Terms</a>
+          <a href="{% url 'refund' %}">Refund</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 MotorVault. All rights reserved.</p>
+      <div class="footer-bottom__links">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Sign Up</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      /* ── 1. COUNTER ANIMATION ── */
+      function animateCounter(el) {
+        var target    = parseFloat(el.dataset.target);
+        var suffix    = el.dataset.suffix || '';
+        var decimal   = parseInt(el.dataset.decimal) || 0;
+        var useIndian = el.dataset.format === 'indian';
+        var steps     = 60;
+        var delay     = 1800 / steps;
+        var current   = 0;
+        var increment = target / steps;
+
+        var timer = setInterval(function () {
+          current += increment;
+          if (current >= target) { current = target; clearInterval(timer); }
+
+          var display;
+          if (decimal > 0) {
+            display = current.toFixed(decimal);
+          } else if (useIndian) {
+            display = Math.round(current).toLocaleString('en-IN');
+          } else {
+            display = Math.round(current);
+          }
+          el.textContent = display + suffix;
+        }, delay);
+      }
+
+      /* ── 2. INTERSECTION OBSERVER ── */
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+
+          if (el.hasAttribute('data-animate')) {
+            el.classList.add('visible');
+          }
+          if (el.classList.contains('about-stats')) {
+            el.querySelectorAll('.stat-num[data-target]').forEach(animateCounter);
+          }
+
+          observer.unobserve(el);
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('[data-animate]').forEach(function (el) {
+        observer.observe(el);
+      });
+
+      var statsEl = document.querySelector('.about-stats');
+      if (statsEl) observer.observe(statsEl);
+
+      /* ── 3. STAGGERED CARD DELAYS ── */
+      document.querySelectorAll('.features-grid .feature-card').forEach(function (c, i) {
+        c.style.transitionDelay = (i * 90) + 'ms';
+      });
+      document.querySelectorAll('.team-grid .team-card').forEach(function (c, i) {
+        c.style.transitionDelay = (i * 90) + 'ms';
+      });
+
+      /* ── 4. MOBILE NAV TOGGLE ── */
+      var toggle = document.getElementById('navToggle');
+      var links  = document.querySelector('.nav-links');
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          links.classList.toggle('open');
+        });
+      }
+
+    });
+  </script>
+
+</body>
+</html>
