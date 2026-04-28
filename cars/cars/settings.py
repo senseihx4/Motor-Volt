@@ -32,7 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-print("hello world")
 
 INSTALLED_APPS = [
     "semantic_admin",
