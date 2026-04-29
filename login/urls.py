@@ -25,14 +25,14 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('search/', views.search, name='search'),
     path('car/<int:pk>/', views.car_detail, name='car_detail'),
-    path('compare/', views.compare, name='compare'),
+  
 
-    path('careers/', views.careers, name='careers'),
-    path('press/', views.press, name='press'),
+    
+    
     path('contact/', views.contact, name='contact'),
     path('privacy/', views.privacy, name='privacy'),
     path('terms/', views.terms, name='terms'),
-    path('refund/', views.refund, name='refund'),
+   
     path('update-profile/', views.update_profile, name='update_profile'),
 
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html') , name='password_reset'),

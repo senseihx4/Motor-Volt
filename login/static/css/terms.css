@@ -1,0 +1,136 @@
+/* terms.css — MotorVault (Simple) */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0a0a0a;
+  color: #f0ede8;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+}
+a { color: #e8c84a; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* NAV */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw; height: 60px; background: #0a0a0a;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  position: sticky; top: 0; z-index: 10;
+}
+.logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; color: #fff; }
+.logo span { color: #e8c84a; }
+.btn-ghost {
+  font-size: 13px; color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.1); padding: 7px 16px;
+  border-radius: 8px; transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.3); color: #fff; text-decoration: none; }
+
+/* HEADER */
+.header {
+  padding: 4rem 5vw 3rem;
+  max-width: 740px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.eyebrow {
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #e8c84a; margin-bottom: 0.6rem;
+}
+.header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.75rem;
+}
+.header h1 span { color: #e8c84a; }
+.date { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+/* CONTENT */
+.content {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 3rem 5vw 5rem;
+}
+
+/* Intro */
+.intro {
+  background: #111;
+  border-left: 3px solid #e8c84a;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 2.5rem;
+}
+
+/* Block */
+.block {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.block:last-of-type { border-bottom: none; }
+
+.block h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem; letter-spacing: 0.06em;
+  color: #ffffff; margin-bottom: 0.75rem;
+}
+
+.block p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.6rem;
+}
+.block p:last-child { margin-bottom: 0; }
+
+.block ul {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 0.4rem;
+  margin: 0.6rem 0;
+}
+.block ul li {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  padding-left: 1.25rem;
+  position: relative;
+}
+.block ul li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: #e8c84a; font-size: 12px;
+}
+
+/* Bottom links */
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 13px;
+}
+
+/* FOOTER */
+.footer {
+  background: #111;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 1.5rem 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.footer p { font-size: 12px; color: rgba(255,255,255,0.2); }
+.footer div { display: flex; gap: 1.5rem; }
+.footer div a { font-size: 12px; color: rgba(255,255,255,0.3); }
+.footer div a:hover { color: #e8c84a; text-decoration: none; }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .header, .content { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .footer { flex-direction: column; align-items: flex-start; }
+  .footer-links { flex-direction: column; gap: 0.75rem; }
+}

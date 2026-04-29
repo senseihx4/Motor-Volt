@@ -2,12 +2,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MotorVault</title>
+  <title>Contact Us — MotorVault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/contact.css' %}">
 </head>
 <body>
-  <p>{{ request.resolver_match.url_name }} page — coming soon.</p>
-  <a href="{% url 'home' %}">← Home</a>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="{% url 'home' %}" class="logo">MOTOR<span>VAULT</span></a>
+    <div class="nav-links">
+      <a href="{% url 'listings' %}">Inventory</a>
+      <a href="{% url 'sell' %}">Sell Your Car</a>
+      <a href="{% url 'about' %}">About</a>
+    </div>
+    <a href="{% url 'dashboard' %}" class="btn-ghost">Dashboard</a>
+    <button class="nav-toggle" id="navToggle">&#9776;</button>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="header">
+    <p class="eyebrow">Get in touch</p>
+    <h1>CONTACT <span>US</span></h1>
+    <p class="header__sub">Have a question or need help? We're here for you.</p>
+  </div>
+
+  <!-- MAIN -->
+  <div class="layout">
+
+    <!-- LEFT: Info cards -->
+    <div class="info-col">
+
+      <div class="info-card">
+        <div class="info-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <p class="info-card__label">Email</p>
+          <p class="info-card__value">support@motorvault.in</p>
+          <p class="info-card__hint">We reply within 24 hours</p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <p class="info-card__label">Phone</p>
+          <p class="info-card__value">+91 98765 43210</p>
+          <p class="info-card__hint">Mon–Sat, 10am – 6pm</p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <p class="info-card__label">Office</p>
+          <p class="info-card__value">Sector 17, Chandigarh</p>
+          <p class="info-card__hint">Punjab, India — 160017</p>
+        </div>
+      </div>
+
+      <!-- Dummy social links -->
+      <div class="socials">
+        <p class="socials__label">Follow us</p>
+        <div class="socials__row">
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 4.56v14.91A4.54 4.54 0 0 1 19.46 24H4.54A4.54 4.54 0 0 1 0 19.47V4.54A4.54 4.54 0 0 1 4.54 0h14.92A4.54 4.54 0 0 1 24 4.56zm-7.2 0h-2.22c-.87 0-1.03.41-1.03 1.02v1.98H16.8l-.27 2.94h-2.98V18h-3V10.5H8.57V7.56h1.98V5.4C10.55 3.09 12 2 14.1 2c1 0 2.03.08 3.7.3v2.26z"/></svg>
+            Facebook
+          </a>
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><path fill="#0a0a0a" d="M12 7a5 5 0 1 0 0 10A5 5 0 0 0 12 7zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg>
+            Instagram
+          </a>
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Twitter / X
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="form-col">
+      <h2 class="form-title">Send us a message</h2>
+
+      <form id="contactForm">
+
+        <div class="row-2">
+          <div class="field">
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" placeholder="Arjun" required>
+          </div>
+          <div class="field">
+            <label for="lname">Last Name *</label>
+            <input type="text" id="lname" placeholder="Kumar" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email *</label>
+          <input type="email" id="email" placeholder="arjun@email.com" required>
+        </div>
+
+        <div class="field">
+          <label for="subject">Subject *</label>
+          <select id="subject" required>
+            <option value="">Select a topic</option>
+            <option>Question about a listing</option>
+            <option>Selling my car</option>
+            <option>Account issue</option>
+            <option>Payment / Financing</option>
+            <option>Report a problem</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">Message *</label>
+          <textarea id="message" rows="5" placeholder="Write your message here..." required></textarea>
+        </div>
+
+        <button type="button" class="btn-submit" id="submitBtn">Send Message →</button>
+
+        <!-- Success message (hidden by default) -->
+        <div class="success-msg" id="successMsg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>
+          Message sent! We'll get back to you within 24 hours.
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2025 MotorVault. All rights reserved.</p>
+    <div>
+      <a href="{% url 'privacy' %}">Privacy</a>
+      <a href="{% url 'terms' %}">Terms</a>
+      
+    </div>
+  </footer>
+
+  <script>
+    /* Mobile nav */
+    document.getElementById('navToggle').addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+
+    /* Dummy form submit — just shows success message */
+    document.getElementById('submitBtn').addEventListener('click', function() {
+      var fname   = document.getElementById('fname').value.trim();
+      var email   = document.getElementById('email').value.trim();
+      var subject = document.getElementById('subject').value;
+      var message = document.getElementById('message').value.trim();
+
+      if (!fname || !email || !subject || !message) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      this.textContent = 'Sending...';
+      this.disabled = true;
+
+      setTimeout(function() {
+        document.getElementById('contactForm').reset();
+        document.getElementById('successMsg').style.display = 'flex';
+        document.getElementById('submitBtn').style.display = 'none';
+      }, 1000);
+    });
+  </script>
+
 </body>
 </html>

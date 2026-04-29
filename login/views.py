@@ -379,14 +379,10 @@ def car_detail(request, pk):
     similar_cars = cars.objects.filter(make=car.make, is_approved=True).exclude(pk=pk)[:4]
     return render(request, 'car_detail.html', {'pk': pk, 'car': car, 'similar_cars': similar_cars})
 
-def compare(request):
-    return render(request, 'compare.html')
 
-def careers(request):
-    return render(request, 'careers.html')
 
-def press(request):
-    return render(request, 'press.html')
+
+
 
 def contact(request):
     return render(request, 'contact.html')
@@ -397,8 +393,7 @@ def privacy(request):
 def terms(request):
     return render(request, 'terms.html')
 
-def refund(request):
-    return render(request, 'refund.html')
+
 
 @csrf_exempt
 def resend_otp(request):

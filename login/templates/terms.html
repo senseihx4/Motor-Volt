@@ -2,12 +2,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MotorVault</title>
+  <title>Terms & Conditions — MotorVault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/terms.css' %}">
 </head>
 <body>
-  <p>{{ request.resolver_match.url_name }} page — coming soon.</p>
-  <a href="{% url 'home' %}">← Home</a>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="{% url 'home' %}" class="logo">MOTOR<span>VAULT</span></a>
+    <a href="{% url 'dashboard' %}" class="btn-ghost">← Dashboard</a>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="header">
+    <p class="eyebrow">Legal</p>
+    <h1>TERMS & <span>CONDITIONS</span></h1>
+    <p class="date">Last updated: January 1, 2025</p>
+  </div>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <div class="intro">
+      By using MotorVault, you agree to these terms. Please read them carefully before using our platform.
+    </div>
+
+    <div class="block">
+      <h2>1. Who We Are</h2>
+      <p>MotorVault is an online platform that allows users to buy and sell used vehicles in India. We act as a marketplace — we do not own or sell cars directly.</p>
+    </div>
+
+    <div class="block">
+      <h2>2. Your Account</h2>
+      <p>You must be at least 18 years old to create an account. You are responsible for keeping your login credentials secure. Do not share your account with others.</p>
+    </div>
+
+    <div class="block">
+      <h2>3. Listing a Car</h2>
+      <p>When you list a car, you confirm that:</p>
+      <ul>
+        <li>You are the legal owner of the vehicle.</li>
+        <li>All information provided is accurate and truthful.</li>
+        <li>The vehicle documents (chassis, engine, insurance) are genuine.</li>
+        <li>The car is free of any legal disputes or pending loans.</li>
+      </ul>
+      <p>Listings are reviewed by our admin team before going live. We reserve the right to reject any listing.</p>
+    </div>
+
+    <div class="block">
+      <h2>4. Buying a Car</h2>
+      <p>MotorVault does not guarantee the condition of any vehicle. Buyers are encouraged to inspect the car in person before making any payment. We are not responsible for any disputes between buyers and sellers.</p>
+    </div>
+
+    <div class="block">
+      <h2>5. Prohibited Activity</h2>
+      <p>You must not use MotorVault to:</p>
+      <ul>
+        <li>List stolen or fraudulent vehicles.</li>
+        <li>Post false or misleading information.</li>
+        <li>Spam or harass other users.</li>
+        <li>Attempt to hack or disrupt our platform.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h2>6. Account Suspension</h2>
+      <p>We may suspend or permanently ban any account that violates these terms, without prior notice.</p>
+    </div>
+
+    <div class="block">
+      <h2>7. Limitation of Liability</h2>
+      <p>MotorVault is provided "as is". We are not liable for any loss, damage, or dispute arising from use of our platform. Use it at your own risk.</p>
+    </div>
+
+    <div class="block">
+      <h2>8. Changes to Terms</h2>
+      <p>We may update these terms at any time. Continued use of MotorVault after changes means you accept the new terms.</p>
+    </div>
+
+    <div class="block">
+      <h2>9. Contact</h2>
+      <p>If you have questions about these terms, contact us at <a href="mailto:support@motorvault.in">support@motorvault.in</a> or visit our <a href="{% url 'contact' %}">contact page</a>.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="{% url 'privacy' %}">← Privacy Policy</a>
+      
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2025 MotorVault. All rights reserved.</p>
+    <div>
+      <a href="{% url 'privacy' %}">Privacy</a>
+      <a href="{% url 'terms' %}">Terms</a>
+     
+    </div>
+  </footer>
+
 </body>
 </html>

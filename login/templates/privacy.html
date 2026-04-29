@@ -2,12 +2,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MotorVault</title>
+  <title>Privacy Policy — MotorVault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/privacy.css' %}">
 </head>
 <body>
-  <p>{{ request.resolver_match.url_name }} page — coming soon.</p>
-  <a href="{% url 'home' %}">← Home</a>
+
+  <!-- ── NAV ── -->
+  <nav class="nav">
+    <a href="{% url 'home' %}" class="logo">MOTOR<span>VAULT</span></a>
+    <div class="nav-links">
+      <a href="{% url 'listings' %}">Inventory</a>
+      <a href="{% url 'sell' %}">Sell Your Car</a>
+      <a href="{% url 'about' %}">About</a>
+    </div>
+    <div class="nav-actions">
+      <a href="{% url 'dashboard' %}" class="btn-ghost">Dashboard</a>
+      <a href="{% url 'logout' %}" class="btn-yellow">Log Out</a>
+    </div>
+    <button class="nav-toggle" id="navToggle">&#9776;</button>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <span class="badge">Legal</span>
+    <h1 class="hero__title">PRIVACY <span class="accent">POLICY</span></h1>
+    <p class="hero__sub">Last updated: January 1, 2025 &nbsp;·&nbsp; Effective immediately</p>
+  </section>
+
+  <!-- ── LAYOUT ── -->
+  <div class="layout">
+
+    <!-- Sidebar TOC -->
+    <aside class="toc">
+      <p class="toc__title">ON THIS PAGE</p>
+      <ul>
+        <li><a href="#info-collect" class="toc__link active">Information We Collect</a></li>
+        <li><a href="#how-use"      class="toc__link">How We Use It</a></li>
+        <li><a href="#sharing"      class="toc__link">Sharing Your Data</a></li>
+        <li><a href="#cookies"      class="toc__link">Cookies</a></li>
+        <li><a href="#security"     class="toc__link">Data Security</a></li>
+        <li><a href="#retention"    class="toc__link">Data Retention</a></li>
+        <li><a href="#rights"       class="toc__link">Your Rights</a></li>
+        <li><a href="#children"     class="toc__link">Children's Privacy</a></li>
+        <li><a href="#changes"      class="toc__link">Policy Changes</a></li>
+        <li><a href="#contact"      class="toc__link">Contact Us</a></li>
+      </ul>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+
+      <div class="intro-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <p>MotorVault ("we", "us", or "our") is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use our platform.</p>
+      </div>
+
+      <!-- 1 -->
+      <section class="block" id="info-collect">
+        <div class="block__num">01</div>
+        <h2 class="block__title">Information We Collect</h2>
+        <p>We collect information you provide directly to us and information generated automatically when you use our services.</p>
+
+        <h3 class="block__sub">Information You Provide</h3>
+        <ul class="list">
+          <li><strong>Account details</strong> — name, email address, phone number, and password when you register.</li>
+          <li><strong>Vehicle information</strong> — make, model, year, mileage, fuel type, price, chassis number, engine number, insurance number, and license plate when you list a car.</li>
+          <li><strong>Profile picture</strong> — if you choose to upload one.</li>
+          <li><strong>Communications</strong> — messages you send us via contact forms or email.</li>
+        </ul>
+
+        <h3 class="block__sub">Automatically Collected</h3>
+        <ul class="list">
+          <li><strong>Log data</strong> — IP address, browser type, pages visited, and timestamps.</li>
+          <li><strong>Device data</strong> — device type, operating system, and screen resolution.</li>
+          <li><strong>Cookies</strong> — session and preference data (see Cookies section below).</li>
+        </ul>
+      </section>
+
+      <!-- 2 -->
+      <section class="block" id="how-use">
+        <div class="block__num">02</div>
+        <h2 class="block__title">How We Use It</h2>
+        <p>We use the information we collect for the following purposes:</p>
+        <ul class="list">
+          <li>To create and manage your account.</li>
+          <li>To process and display your car listings.</li>
+          <li>To verify vehicle documents and approve listings.</li>
+          <li>To send you OTP codes, listing approvals, and service notifications.</li>
+          <li>To respond to your questions and support requests.</li>
+          <li>To improve our platform, features, and user experience.</li>
+          <li>To detect and prevent fraud or unauthorized activity.</li>
+          <li>To comply with legal obligations.</li>
+        </ul>
+      </section>
+
+      <!-- 3 -->
+      <section class="block" id="sharing">
+        <div class="block__num">03</div>
+        <h2 class="block__title">Sharing Your Data</h2>
+        <p>We do not sell your personal data. We may share it only in these limited cases:</p>
+        <ul class="list">
+          <li><strong>Service providers</strong> — trusted third parties who help us operate the platform (e.g. email services, hosting providers) under strict confidentiality agreements.</li>
+          <li><strong>Legal requirements</strong> — when required by law, court order, or to protect our rights and users' safety.</li>
+          <li><strong>Business transfers</strong> — if MotorVault is acquired or merges, your data may transfer to the new entity under the same protections.</li>
+          <li><strong>With your consent</strong> — in any other case, only with your explicit permission.</li>
+        </ul>
+
+        <div class="highlight-box">
+          <strong>Vehicle document numbers</strong> (chassis, engine, insurance, license plate) are used solely for verification and are never displayed publicly on listings.
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section class="block" id="cookies">
+        <div class="block__num">04</div>
+        <h2 class="block__title">Cookies</h2>
+        <p>We use cookies to keep you logged in, remember your preferences, and understand how our platform is used.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Cookie</th><th>Purpose</th><th>Duration</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>sessionid</td><td>Keeps you logged in securely</td><td>Session</td></tr>
+              <tr><td>csrftoken</td><td>Protects against CSRF attacks</td><td>1 year</td></tr>
+              <tr><td>preferences</td><td>Saves your display preferences</td><td>30 days</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>You can disable cookies in your browser settings, but some features may not work properly.</p>
+      </section>
+
+      <!-- 5 -->
+      <section class="block" id="security">
+        <div class="block__num">05</div>
+        <h2 class="block__title">Data Security</h2>
+        <p>We take reasonable technical and organisational measures to protect your data, including:</p>
+        <ul class="list">
+          <li>HTTPS encryption for all data in transit.</li>
+          <li>Hashed and salted password storage — we never store plain-text passwords.</li>
+          <li>Restricted access — only authorised staff can access user data.</li>
+          <li>Regular security reviews of our infrastructure.</li>
+        </ul>
+        <p>No system is 100% secure. If you suspect unauthorised access to your account, please contact us immediately.</p>
+      </section>
+
+      <!-- 6 -->
+      <section class="block" id="retention">
+        <div class="block__num">06</div>
+        <h2 class="block__title">Data Retention</h2>
+        <p>We retain your data for as long as your account is active or as needed to provide our services. Specifically:</p>
+        <ul class="list">
+          <li><strong>Account data</strong> — retained until you delete your account.</li>
+          <li><strong>Listing data</strong> — retained for 12 months after a listing is removed.</li>
+          <li><strong>Log data</strong> — retained for up to 90 days.</li>
+          <li><strong>Legal obligations</strong> — some data may be retained longer if required by law.</li>
+        </ul>
+      </section>
+
+      <!-- 7 -->
+      <section class="block" id="rights">
+        <div class="block__num">07</div>
+        <h2 class="block__title">Your Rights</h2>
+        <p>You have the following rights regarding your personal data:</p>
+        <ul class="list">
+          <li><strong>Access</strong> — request a copy of the data we hold about you.</li>
+          <li><strong>Correction</strong> — update inaccurate or incomplete information via your profile settings.</li>
+          <li><strong>Deletion</strong> — request that we delete your account and associated data.</li>
+          <li><strong>Portability</strong> — request your data in a machine-readable format.</li>
+          <li><strong>Objection</strong> — object to certain types of data processing.</li>
+        </ul>
+        <p>To exercise any of these rights, contact us at <a href="mailto:privacy@motorvault.in" class="link">privacy@motorvault.in</a>. We will respond within 30 days.</p>
+      </section>
+
+      <!-- 8 -->
+      <section class="block" id="children">
+        <div class="block__num">08</div>
+        <h2 class="block__title">Children's Privacy</h2>
+        <p>MotorVault is not directed at anyone under the age of 18. We do not knowingly collect personal data from minors. If you believe a minor has provided us with their data, please contact us and we will delete it promptly.</p>
+      </section>
+
+      <!-- 9 -->
+      <section class="block" id="changes">
+        <div class="block__num">09</div>
+        <h2 class="block__title">Policy Changes</h2>
+        <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at the top of this page. For significant changes, we will notify you by email or a prominent notice on the platform. Continued use of MotorVault after changes constitutes acceptance of the updated policy.</p>
+      </section>
+
+      <!-- 10 -->
+      <section class="block" id="contact">
+        <div class="block__num">10</div>
+        <h2 class="block__title">Contact Us</h2>
+        <p>If you have any questions, concerns, or requests about this Privacy Policy or your data, please reach out:</p>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>
+              <p class="contact-item__label">Email</p>
+              <a href="mailto:privacy@motorvault.in" class="link">privacy@motorvault.in</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <p class="contact-item__label">Address</p>
+              <p>MotorVault Pvt. Ltd., Chandigarh, India</p>
+            </div>
+          </div>
+        </div>
+        <a href="{% url 'contact' %}" class="btn-yellow">Go to Contact Page</a>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="{% url 'home' %}" class="logo">MOTOR<span>VAULT</span></a>
+        <p class="footer-tagline">Curated luxury, sports &amp; everyday vehicles — inspected, certified, and ready to own.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <p class="footer-col__title">EXPLORE</p>
+          <a href="{% url 'listings' %}">Inventory</a>
+          <a href="{% url 'sell' %}">Sell Your Car</a>
+          
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">COMPANY</p>
+          <a href="{% url 'about' %}">About</a>
+          
+          <a href="{% url 'contact' %}">Contact</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">LEGAL</p>
+          <a href="{% url 'privacy' %}">Privacy</a>
+          <a href="{% url 'terms' %}">Terms</a>
+          
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 MotorVault. All rights reserved.</p>
+      <div class="footer-bottom__links">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Sign Up</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Mobile nav ── */
+    document.getElementById('navToggle').addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+
+    /* ── Active TOC link on scroll ── */
+    var sections = document.querySelectorAll('.block');
+    var tocLinks = document.querySelectorAll('.toc__link');
+
+    window.addEventListener('scroll', function() {
+      var scrollY = window.scrollY + 120;
+      sections.forEach(function(sec) {
+        if (sec.offsetTop <= scrollY) {
+          tocLinks.forEach(function(l) { l.classList.remove('active'); });
+          var active = document.querySelector('.toc__link[href="#' + sec.id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
