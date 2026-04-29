@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout as auth_logout, update_session_aut
 import requests
 from django.conf import settings
 from .forms import UserForm, CarForm, updateprofileform
-from .models import User, cars
+from .models import CarImage, User, cars
 from django.contrib import messages
 import random
 from django.views.decorators.csrf import csrf_exempt
@@ -133,9 +133,16 @@ def sell(request):
         if form.is_valid():
             car = form.save(commit=False)
             car.owner = request.user
-            if 'images' in request.FILES:
-              car.image = request.FILES.getlist('images')[0]
             car.save()
+
+            images = request.FILES.getlist('images')
+            for i, img in enumerate(images):
+                CarImage.objects.create(
+                    car=car,
+                    image=img,
+                    is_main=(i == int(request.POST.get('main_image_index', 0)))
+                )
+
             messages.success(request, 'Car listed successfully!')
             return redirect('dashboard')
         return render(request, 'sell.html', {'form': form})
@@ -185,26 +192,52 @@ def dashboard(request):
 
     return render(request, 'dashboard.html', context)
 
+
 def edit_car(request, pk):
+    
     if request.user.user_type == 1:
         car = cars.objects.get(pk=pk)
     else:
         car = cars.objects.get(pk=pk, owner=request.user)
+
+    existing_images = car.images.all()
+
     if request.method == 'POST':
         form = CarForm(request.POST, request.FILES, instance=car)
         if form.is_valid():
-            updated = form.save(commit=False)
+            form.save()
 
-            if 'images' in request.FILES:
-              updated.image = request.FILES.getlist('images')[0]
+            delete_ids = request.POST.getlist('delete_images')
+            if delete_ids:
+                CarImage.objects.filter(id__in=delete_ids, car=car).delete()
 
-            updated.save()
+            new_images = request.FILES.getlist('images')
+            main_index = int(request.POST.get('main_image_index', 0))
+
+            for i, img in enumerate(new_images):
+                CarImage.objects.create(
+                    car=car,
+                    image=img,
+                    is_main=(i == main_index)
+                )
+
             messages.success(request, 'Car updated successfully!')
             return redirect('dashboard')
-        return render(request, 'sell.html', {'form': form})
 
+        
+        return render(request, 'sell.html', {
+            'form': form,
+            'car': car,
+            'existing_images': car.images.all(),
+        })
+
+    
     form = CarForm(instance=car)
-    return render(request, 'sell.html', {'form': form})
+    return render(request, 'sell.html', {
+        'form': form,
+        'car': car,
+        'existing_images': existing_images,
+    })
 
 def delete_car(request, pk):
     if request.user.user_type == 1:

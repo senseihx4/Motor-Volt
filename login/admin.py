@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User, cars
+from .models import CarImage
 
 
 @admin.register(User)
@@ -27,3 +28,10 @@ class CarsAdmin(admin.ModelAdmin):
     list_display = ('make', 'model', 'year', 'owner', 'is_approved', 'chassis_number', 'license_plate_number')
     search_fields = ('make', 'model', 'chassis_number', 'license_plate_number')
     list_filter = ('is_approved', 'fuel_type')
+
+
+@admin.register(CarImage)
+class CarImageAdmin(admin.ModelAdmin):
+    list_display = ('car', 'is_main')
+    search_fields = ('car__make', 'car__model')
+    list_filter = ('is_main',)

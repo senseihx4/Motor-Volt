@@ -75,3 +75,10 @@ class cars(models.Model):
     def __str__(self):
         return f"{self.make} {self.model} ({self.year})"
 
+class CarImage(models.Model):
+    car = models.ForeignKey(cars, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='car_images/')
+    is_main = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Image for {self.car.make} {self.car.model}"
