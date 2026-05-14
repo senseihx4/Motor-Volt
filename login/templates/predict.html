@@ -48,7 +48,7 @@
         <div class="row-2">
           <div class="field">
             <label for="brand">Brand *</label>
-            <select id="brand" name="brand" required>
+            <select id="brand" name="brand" required onchange="filterModels(this.value)">
               <option value="">Select Brand</option>
               {% for b in brands %}
                 <option value="{{ b }}" {% if form.brand == b %}selected{% endif %}>{{ b }}</option>
@@ -58,10 +58,7 @@
           <div class="field">
             <label for="car_model">Model *</label>
             <select id="car_model" name="car_model" required>
-              <option value="">Select Model</option>
-              {% for m in car_models %}
-                <option value="{{ m }}" {% if form.car_model == m %}selected{% endif %}>{{ m }}</option>
-              {% endfor %}
+              <option value="">Select Brand First</option>
             </select>
           </div>
         </div>
@@ -249,6 +246,63 @@
   </footer>
 
   <script>
+    const brandModels = {
+      "Maruti":        ["Alto","Baleno","Celerio","Ciaz","Dzire LXI","Dzire VXI","Dzire ZXI","Eeco","Ertiga","Ignis","S-Presso","Vitara","Swift","Swift Dzire","Wagon R","XL6"],
+      "Hyundai":       ["Aura","Creta","Elantra","Grand","i10","i20","Santro","Tucson","Venue","Verna"],
+      "Tata":          ["Altroz","Harrier","Hexa","Nexon","Safari","Tiago","Tigor","Triber"],
+      "Mahindra":      ["Alturas","Bolero","Gurkha","KUV","KUV100","Marazzo","Scorpio","Thar","XUV300","XUV500"],
+      "Honda":         ["Amaze","City","Civic","CR","CR-V","Jazz","WR-V"],
+      "Toyota":        ["Camry","Fortuner","Glanza","Innova","Yaris"],
+      "Ford":          ["Aspire","Ecosport","Endeavour","Figo","Freestyle"],
+      "Renault":       ["Duster","Kicks","KWID","Triber"],
+      "Kia":           ["Carnival","Seltos"],
+      "MG":            ["Hector"],
+      "Volkswagen":    ["Polo","Vento"],
+      "Skoda":         ["Octavia","Rapid","Superb"],
+      "Nissan":        ["GO","Kicks","X-Trail"],
+      "Datsun":        ["GO","RediGO","redi-GO"],
+      "Jeep":          ["Compass","Wrangler"],
+      "BMW":           ["3","5","7","X1","X3","X4","X5","Z4"],
+      "Audi":          ["A4","A6","A8","Q7"],
+      "Mercedes-Benz": ["C-Class","CLS","E-Class","GL-Class","GLS","S-Class"],
+      "Mercedes-AMG":  ["C","GLS"],
+      "Jaguar":        ["F-PACE","XE","XF"],
+      "Land Rover":    ["Rover"],
+      "Volvo":         ["S90","XC","XC60","XC90"],
+      "Porsche":       ["Cayenne","Macan","Panamera"],
+      "Lexus":         ["ES","NX","RX"],
+      "Maserati":      ["Ghibli","Quattroporte"],
+      "Rolls-Royce":   ["Ghost"],
+      "Bentley":       ["Continental"],
+      "Ferrari":       ["GTC4Lusso"],
+      "Mini":          ["Cooper"],
+      "Force":         ["Gurkha"],
+      "ISUZU":         ["D-Max","MUX"],
+      "Isuzu":         ["D-Max","MUX"],
+    };
+
+    const savedBrand = "{{ form.brand|default:'' }}";
+    const savedModel = "{{ form.car_model|default:'' }}";
+
+    function filterModels(brand) {
+      const modelSelect = document.getElementById('car_model');
+      modelSelect.innerHTML = '<option value="">Select Model</option>';
+      if (brand && brandModels[brand]) {
+        brandModels[brand].forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          if (m === savedModel) opt.selected = true;
+          modelSelect.appendChild(opt);
+        });
+      } else {
+        modelSelect.innerHTML = '<option value="">Select Brand First</option>';
+      }
+    }
+
+    // On page load restore state after form POST
+    if (savedBrand) filterModels(savedBrand);
+
     document.getElementById('navToggle').addEventListener('click', function () {
       document.querySelector('.nav-links').classList.toggle('open');
     });
