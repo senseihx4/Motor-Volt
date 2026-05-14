@@ -39,78 +39,133 @@
 
       <form method="POST">
         {% csrf_token %}
-        {% if form.errors %}
-          <p class="err" style="margin-bottom:1rem">Please fix the errors below and try again.</p>
+
+        {% if error %}
+          <p class="err" style="margin-bottom:1rem">{{ error }}</p>
         {% endif %}
 
+        <!-- Row 1: Brand + Model -->
+        <div class="row-2">
+          <div class="field">
+            <label for="brand">Brand *</label>
+            <select id="brand" name="brand" required>
+              <option value="">Select Brand</option>
+              {% for b in brands %}
+                <option value="{{ b }}" {% if form.brand == b %}selected{% endif %}>{{ b }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="car_model">Model *</label>
+            <select id="car_model" name="car_model" required>
+              <option value="">Select Model</option>
+              {% for m in car_models %}
+                <option value="{{ m }}" {% if form.car_model == m %}selected{% endif %}>{{ m }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 2: Year + KMs -->
         <div class="row-2">
           <div class="field">
             <label for="year">Year of Purchase *</label>
             <input type="number" id="year" name="year"
-                   placeholder="e.g. 2019" min="2000" max="2024"
-                   value="{{ form.year.value|default:'' }}" required>
-            <p class="hint">Cars purchased before 2005 (20+ years old) will likely return ₹0 — the model is trained on modern vehicles.</p>
-            {% if form.year.errors %}<p class="err">{{ form.year.errors.0 }}</p>{% endif %}
+                   placeholder="e.g. 2019" min="2000" max="2025"
+                   value="{{ form.year|default:'' }}" required>
+            <p class="hint">Model is trained on cars from 2000–2024.</p>
           </div>
           <div class="field">
             <label for="kms_driven">Kms Driven *</label>
             <div class="input-suffix-wrap">
               <input type="number" id="kms_driven" name="kms_driven"
                      placeholder="e.g. 35000" min="0"
-                     value="{{ form.kms_driven.value|default:'' }}" required>
+                     value="{{ form.kms_driven|default:'' }}" required>
               <span class="suffix">km</span>
             </div>
-            <p class="hint">Above 1,50,000 km on an older or low-power car may push the estimate to ₹0.</p>
-            {% if form.kms_driven.errors %}<p class="err">{{ form.kms_driven.errors.0 }}</p>{% endif %}
           </div>
         </div>
 
+        <!-- Row 3: Max Power + Mileage -->
         <div class="row-2">
           <div class="field">
-            <label for="max_power">Max Power (BHP) *</label>
-            <input type="number" id="max_power" name="max_power"
-                   placeholder="e.g. 82" step="0.1" min="0"
-                   value="{{ form.max_power.value|default:'' }}" required>
-            <p class="hint">Found on RC book or car website. Below 50 BHP (old hatchbacks, entry CNG cars) may return ₹0 if the car is also old or high-mileage.</p>
-            {% if form.max_power.errors %}<p class="err">{{ form.max_power.errors.0 }}</p>{% endif %}
+            <label for="max_power">Max Power *</label>
+            <div class="input-suffix-wrap">
+              <input type="number" id="max_power" name="max_power"
+                     placeholder="e.g. 82" step="0.1" min="0"
+                     value="{{ form.max_power|default:'' }}" required>
+              <span class="suffix">BHP</span>
+            </div>
+            <p class="hint">Found on RC book or car manufacturer's website.</p>
           </div>
+          <div class="field">
+            <label for="mileage">Mileage *</label>
+            <div class="input-suffix-wrap">
+              <input type="number" id="mileage" name="mileage"
+                     placeholder="e.g. 18.5" step="0.1" min="0"
+                     value="{{ form.mileage|default:'' }}" required>
+              <span class="suffix">kmpl</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: Engine + Seats -->
+        <div class="row-2">
+          <div class="field">
+            <label for="engine">Engine Capacity *</label>
+            <div class="input-suffix-wrap">
+              <input type="number" id="engine" name="engine"
+                     placeholder="e.g. 1197" min="0"
+                     value="{{ form.engine|default:'' }}" required>
+              <span class="suffix">cc</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="seats">Seats *</label>
+            <select id="seats" name="seats" required>
+              <option value="">Select</option>
+              <option value="2"  {% if form.seats == '2'  %}selected{% endif %}>2</option>
+              <option value="4"  {% if form.seats == '4'  %}selected{% endif %}>4</option>
+              <option value="5"  {% if form.seats == '5'  %}selected{% endif %}>5</option>
+              <option value="6"  {% if form.seats == '6'  %}selected{% endif %}>6</option>
+              <option value="7"  {% if form.seats == '7'  %}selected{% endif %}>7</option>
+              <option value="8"  {% if form.seats == '8'  %}selected{% endif %}>8</option>
+              <option value="9"  {% if form.seats == '9'  %}selected{% endif %}>9</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 5: Fuel + Seller -->
+        <div class="row-2">
           <div class="field">
             <label for="fuel_type">Fuel Type *</label>
             <select id="fuel_type" name="fuel_type" required>
               <option value="">Select</option>
-              <option value="0" {% if form.fuel_type.value == '0' %}selected{% endif %}>Petrol</option>
-              <option value="1" {% if form.fuel_type.value == '1' %}selected{% endif %}>Diesel</option>
-              <option value="2" {% if form.fuel_type.value == '2' %}selected{% endif %}>CNG</option>
-              <option value="3" {% if form.fuel_type.value == '3' %}selected{% endif %}>LPG</option>
-              <option value="4" {% if form.fuel_type.value == '4' %}selected{% endif %}>Electric</option>
+              {% for f in fuel_types %}
+                <option value="{{ f }}" {% if form.fuel_type == f %}selected{% endif %}>{{ f }}</option>
+              {% endfor %}
             </select>
-            <p class="hint">CNG and LPG cars are valued lower by the model — combine with a recent year and decent BHP for a valid estimate.</p>
-            {% if form.fuel_type.errors %}<p class="err">{{ form.fuel_type.errors.0 }}</p>{% endif %}
           </div>
-        </div>
-
-        <div class="row-2">
           <div class="field">
             <label for="seller_type">Seller Type *</label>
             <select id="seller_type" name="seller_type" required>
               <option value="">Select</option>
-              <option value="0" {% if form.seller_type.value == '0' %}selected{% endif %}>Individual</option>
-              <option value="1" {% if form.seller_type.value == '1' %}selected{% endif %}>Dealer</option>
-              <option value="2" {% if form.seller_type.value == '2' %}selected{% endif %}>Trustmark Dealer</option>
+              {% for s in seller_types %}
+                <option value="{{ s }}" {% if form.seller_type == s %}selected{% endif %}>{{ s }}</option>
+              {% endfor %}
             </select>
-            <p class="hint">Trustmark Dealer listings tend to fetch higher estimates than Individual sellers.</p>
-            {% if form.seller_type.errors %}<p class="err">{{ form.seller_type.errors.0 }}</p>{% endif %}
           </div>
-          <div class="field">
-            <label for="transmission">Transmission *</label>
-            <select id="transmission" name="transmission" required>
-              <option value="">Select</option>
-              <option value="0" {% if form.transmission.value == '0' %}selected{% endif %}>Manual</option>
-              <option value="1" {% if form.transmission.value == '1' %}selected{% endif %}>Automatic</option>
-            </select>
-            <p class="hint">Automatic cars are valued higher on average — Manual on an old, high-mileage car increases the chance of a ₹0 result.</p>
-            {% if form.transmission.errors %}<p class="err">{{ form.transmission.errors.0 }}</p>{% endif %}
-          </div>
+        </div>
+
+        <!-- Row 6: Transmission -->
+        <div class="field">
+          <label for="transmission">Transmission *</label>
+          <select id="transmission" name="transmission" required>
+            <option value="">Select</option>
+            {% for t in trans_types %}
+              <option value="{{ t }}" {% if form.transmission == t %}selected{% endif %}>{{ t }}</option>
+            {% endfor %}
+          </select>
         </div>
 
         <button type="submit" class="btn-predict">
@@ -125,7 +180,6 @@
     <div class="result-card {% if not prediction_made %}result-card--empty{% endif %}">
 
       {% if prediction_made %}
-        <!-- Result -->
         <p class="result-label">Estimated Market Value</p>
 
         <div class="result-center">
@@ -134,22 +188,25 @@
         </div>
 
         <div class="result-tags">
-          {% if form.fuel_type.value == '0' %}<span class="tag">⛽ Petrol</span>{% endif %}
-          {% if form.fuel_type.value == '1' %}<span class="tag">🛢 Diesel</span>{% endif %}
-          {% if form.fuel_type.value == '2' %}<span class="tag">💨 CNG</span>{% endif %}
-          {% if form.fuel_type.value == '3' %}<span class="tag">🔥 LPG</span>{% endif %}
-          {% if form.fuel_type.value == '4' %}<span class="tag">⚡ Electric</span>{% endif %}
-          {% if form.transmission.value == '0' %}<span class="tag">Manual</span>{% endif %}
-          {% if form.transmission.value == '1' %}<span class="tag">Automatic</span>{% endif %}
-          {% if form.year.value %}<span class="tag">{{ form.year.value }}</span>{% endif %}
-          {% if form.kms_driven.value %}<span class="tag">{{ form.kms_driven.value }} km</span>{% endif %}
-          {% if form.max_power.value %}<span class="tag">{{ form.max_power.value }} BHP</span>{% endif %}
+          {% if form.brand %}<span class="tag">🚗 {{ form.brand }}</span>{% endif %}
+          {% if form.car_model %}<span class="tag">{{ form.car_model }}</span>{% endif %}
+          {% if form.fuel_type %}<span class="tag">
+            {% if form.fuel_type == 'Petrol' %}⛽
+            {% elif form.fuel_type == 'Diesel' %}🛢
+            {% elif form.fuel_type == 'Electric' %}⚡
+            {% elif form.fuel_type == 'CNG' %}💨
+            {% else %}🔥{% endif %}
+            {{ form.fuel_type }}
+          </span>{% endif %}
+          {% if form.transmission %}<span class="tag">{{ form.transmission }}</span>{% endif %}
+          {% if form.year %}<span class="tag">{{ form.year }}</span>{% endif %}
+          {% if form.kms_driven %}<span class="tag">{{ form.kms_driven }} km</span>{% endif %}
+          {% if form.max_power %}<span class="tag">{{ form.max_power }} BHP</span>{% endif %}
         </div>
 
-        <p class="result-note">* Estimate based on 15,000+ real car listings</p>
+        <p class="result-note">* Estimate based on 15,000+ real car listings using Random Forest (R² = 0.94)</p>
 
       {% else %}
-        <!-- Empty state -->
         <div class="result-empty">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" width="48" height="48"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           <p class="result-empty__title">Your result will appear here</p>
@@ -172,7 +229,7 @@
       <div class="how-arrow">→</div>
       <div class="how-step">
         <div class="how-step__num">2</div>
-        <p class="how-step__text">Our ML model analyses the data</p>
+        <p class="how-step__text">Our Random Forest model analyses 168 features</p>
       </div>
       <div class="how-arrow">→</div>
       <div class="how-step">

@@ -15,6 +15,8 @@ from django.contrib.auth.decorators import login_required
 from .models import User, cars
 import pickle
 import numpy as np
+import pandas as pd
+from django.shortcuts import render
 
 
 def _send_otp_email(to_email, otp):
@@ -455,49 +457,91 @@ def verify_otp(request):
 
     return render(request, 'verify_otp.html')
 
-with open(os.path.join(os.path.dirname(__file__), 'car_price_model_v2.pkl'), 'rb') as f:
-    model_data = pickle.load(f)
 
-w = model_data['w']
-b = model_data['b']
-X_mean = model_data['X_mean']
-X_std = model_data['X_std']
-y_mean = model_data['y_mean']
-y_std = model_data['y_std']
+
+# ── Load model and feature columns once at startup ──────────────────────────
+BASE_DIR = os.path.dirname(__file__)
+
+with open(os.path.join(BASE_DIR, 'random_forest_car_model.pkl'), 'rb') as f:
+    rf_model = pickle.load(f)
+
+with open(os.path.join(BASE_DIR, 'feature_columns.pkl'), 'rb') as f:
+    FEATURE_COLUMNS = pickle.load(f)
+
+# ── Dropdown options for the template ───────────────────────────────────────
+BRANDS       = ['Audi', 'BMW', 'Bentley', 'Datsun', 'Ferrari', 'Force', 'Ford',
+                'Honda', 'Hyundai', 'ISUZU', 'Isuzu', 'Jaguar', 'Jeep', 'Kia',
+                'Land Rover', 'Lexus', 'MG', 'Mahindra', 'Maruti', 'Maserati',
+                'Mercedes-AMG', 'Mercedes-Benz', 'Mini', 'Nissan', 'Porsche',
+                'Renault', 'Rolls-Royce', 'Skoda', 'Tata', 'Toyota',
+                'Volkswagen', 'Volvo']
+CAR_MODELS   = ['3', '5', '6', '7', 'A4', 'A6', 'A8', 'Alto', 'Altroz',
+                'Alturas', 'Amaze', 'Aspire', 'Aura', 'Baleno', 'Bolero', 'C',
+                'C-Class', 'CLS', 'CR', 'CR-V', 'Camry', 'Carnival', 'Cayenne',
+                'Celerio', 'Ciaz', 'City', 'Civic', 'Compass', 'Continental',
+                'Cooper', 'Creta', 'D-Max', 'Duster', 'Dzire LXI', 'Dzire VXI',
+                'Dzire ZXI', 'E-Class', 'ES', 'Ecosport', 'Eeco', 'Elantra',
+                'Endeavour', 'Ertiga', 'F-PACE', 'Figo', 'Fortuner', 'Freestyle',
+                'GL-Class', 'GLS', 'GO', 'GTC4Lusso', 'Ghibli', 'Ghost', 'Glanza',
+                'Grand', 'Gurkha', 'Harrier', 'Hector', 'Hexa', 'Ignis', 'Innova',
+                'Jazz', 'KUV', 'KUV100', 'KWID', 'Kicks', 'MUX', 'Macan',
+                'Marazzo', 'NX', 'Nexon', 'Octavia', 'Panamera', 'Polo', 'Q7',
+                'Quattroporte', 'RX', 'Rapid', 'RediGO', 'Rover', 'S-Class',
+                'S-Presso', 'S90', 'Safari', 'Santro', 'Scorpio', 'Seltos',
+                'Superb', 'Swift', 'Swift Dzire', 'Thar', 'Tiago', 'Tigor',
+                'Triber', 'Tucson', 'Vento', 'Venue', 'Verna', 'Vitara', 'WR-V',
+                'Wagon R', 'Wrangler', 'X-Trail', 'X1', 'X3', 'X4', 'X5', 'XC',
+                'XC60', 'XC90', 'XE', 'XF', 'XL6', 'XUV300', 'XUV500', 'Yaris',
+                'Z4', 'i10', 'i20', 'redi-GO']
+FUEL_TYPES   = ['Petrol', 'Diesel', 'CNG', 'LPG', 'Electric']
+SELLER_TYPES = ['Individual', 'Dealer', 'Trustmark Dealer']
+TRANS_TYPES  = ['Manual', 'Automatic']
+
 
 def predict_price(request):
     estimated_price = None
-    form = CarPredictionForm()
+    prediction_made = False
+    form_data = {}
+    error = None
 
     if request.method == 'POST':
-        form = CarPredictionForm(request.POST)
-        if form.is_valid():
-            d = form.cleaned_data
+        form_data = request.POST.dict()
 
-            car_age = 2025 - d['year']
-            age_squared = car_age ** 2
-            kms_per_age = d['kms_driven'] / car_age
+        try:
+            
+            row = {
+                'vehicle_age':       2025 - int(form_data['year']),
+                'mileage':           float(form_data['mileage']),
+                'engine':            int(form_data['engine']),
+                'max_power':         float(form_data['max_power']),
+                'seats':             int(form_data['seats']),
+                'log_km_driven':     np.log1p(int(form_data['kms_driven'])),
+                'fuel_type':         form_data['fuel_type'],
+                'seller_type':       form_data['seller_type'],
+                'transmission_type': form_data['transmission'],
+                'brand':             form_data['brand'],
+                'model':             form_data['car_model'],
+            }
 
-            features = np.array([[
-                car_age,
-                d['kms_driven'],
-                int(d['seller_type']),
-                int(d['fuel_type']),
-                int(d['transmission']),
-                d['max_power'],
-                age_squared,
-                kms_per_age
-            ]])
+            df = pd.DataFrame([row])
+            df = pd.get_dummies(df, columns=['fuel_type', 'seller_type', 'transmission_type', 'brand', 'model'])
+            df = df.reindex(columns=FEATURE_COLUMNS, fill_value=0)
 
-            features_scaled = (features - X_mean) / X_std
-            price_scaled = np.dot(features_scaled, w).item() + b
-            estimated_price = round(float((price_scaled * y_std) + y_mean), 2)
+            price_raw = rf_model.predict(df)[0]
+            estimated_price = max(0.0, round(price_raw / 100000, 2))  # rupees → lakhs
+            prediction_made = True
 
-            if estimated_price < 0:
-                estimated_price = 0.0
+        except Exception as e:
+            error = str(e)
 
     return render(request, 'predict.html', {
-        'form': form,
+        'form':            form_data,
         'estimated_price': estimated_price,
-        'prediction_made': estimated_price is not None,
+        'prediction_made': prediction_made,
+        'error':           error,
+        'brands':          BRANDS,
+        'car_models':      CAR_MODELS,
+        'fuel_types':      FUEL_TYPES,
+        'seller_types':    SELLER_TYPES,
+        'trans_types':     TRANS_TYPES,
     })
